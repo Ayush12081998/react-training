@@ -10,6 +10,10 @@ const add = (function (){
 // add();
 // console.log(add());
 
+/**
+ * Examples of functions and higher order functions
+ */
+
 var myArray = [1,2,3,4,5];
 
 function times(x){
@@ -24,3 +28,4 @@ console.log(myArray.filter(function (num){return  num<4}))
 console.log(myArray.reduce(function (acc,value){
     return acc+value
 },0))
+
