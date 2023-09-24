@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  </head>
+  <body>
+    <button id="btnGetData">GetData</button>
+    <table id="tblData">
+      <tr>
+        <th>User Id</th>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Completed</th>
+      </tr>
+    </table>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#btnGetData").click(function () {
+          $.get("https://jsonplaceholder.typicode.com/todos").then(function (
+            data
+          ) {
+            console.log(data);
+            var strContent = "";
+            //add tr and td for each object in the array
+            $.each(data, function (key, item) {
+              var strRowContent =
+                "<tr>" +
+                "<td>" +
+                item["userId"] +
+                "</td>" +
+                "<td>" +
+                item["id"] +
+                "</td>" +
+                "<td>" +
+                item["title"] +
+                "</td>" +
+                "<td>" +
+                item["completed"] +
+                "</td>" +
+                "</tr>";
+              strContent += strRowContent;
+            });
+            //append the content to the table
+            $("#tblData").append(strContent);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

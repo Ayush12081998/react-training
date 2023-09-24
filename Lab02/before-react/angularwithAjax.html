@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+</head>
+<style>
+
+</style>
+
+<body ng-app="myApp" ng-controller="todoController">
+    <button id="btnGetData" ng-click="btnClick()">Get Data</button>
+    <table id="tblData">
+        <tr>
+            <th>User Id</th>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Completed</th>
+        </tr>
+        <tr ng-repeat="todo in todos">
+            <td>{{todo.userId}}</td>
+            <td>{{todo.id}}</td>
+            <td>{{todo.title}}</td>
+            <td>{{todo.completed}}</td>
+        </tr>
+    </table>
+    <script type="text/javascript">
+        var myApp = angular.module("myApp",[])
+        var myController = myApp.controller("todoController",function($scope,$http){
+            $scope.todos = []
+            $scope.btnClick = function(){
+                $http.get("https://jsonplaceholder.typicode.com/todos")
+                .then(function(response){
+                    console.log(response.data);
+                    $scope.todos = response.data
+                })
+            }
+
+        })
+
+    </script>
+</body>
+
+</html>
