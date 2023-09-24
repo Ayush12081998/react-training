@@ -18,14 +18,15 @@ export default class CustomerComposite extends React.Component {
         return response;
       })
       .then((response) => {
-        response.json();
-        console.log(response)
+        const respData = response.json();
+        console.log(respData);
+        return respData;
       })
       .then((customers) => this.setState({ customers }))
       .catch(() => this.setState({ hasError: true }));
   }
   componentDidMount() {
-    // this.setState({customers : customersData})
+    this.setState({customers : customersData})
     // axios.get("customers.json").then((response) => {
     //   this.setState({ customers: response.data });
     // });
@@ -36,8 +37,10 @@ export default class CustomerComposite extends React.Component {
     if (this.state.hasError) {
       return <p>Something went wrong....</p>;
     }
-    if (this.state.isLoading) {
+    else if (this.state.isLoading) {
       return <p>Loading...</p>;
+    }else if(this.state.customers === undefined){
+      return <p>Undefined Didn't received data...LOL</p>;
     }
     return (
       <div>
