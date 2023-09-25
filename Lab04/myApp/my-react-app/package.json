@@ -37,6 +37,7 @@
     ]
   },
   "devDependencies": {
-    "@types/whatwg-fetch": "^0.0.33"
+    "@types/whatwg-fetch": "^0.0.33",
+    "moment": "^2.29.4"
   }
 }

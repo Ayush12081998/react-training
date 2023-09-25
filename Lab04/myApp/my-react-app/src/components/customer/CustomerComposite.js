@@ -6,9 +6,9 @@ import CustomerList from "./CustomerList";
 
 export default class CustomerComposite extends React.Component {
   //   state = { customers: [] };
-  customerList = []
+  customerList = [];
   state = { customers: [], isLoading: false, hasError: false };
-  constructor(props){
+  constructor(props) {
     super(props);
     console.log("Hey I am called parent constructor");
   }
@@ -27,8 +27,7 @@ export default class CustomerComposite extends React.Component {
         return response.json();
       })
       .then((customers) => {
-        
-        this.setState({customers: customers});
+        this.setState({ customers: customers });
       })
       .catch(() => this.setState({ hasError: true }));
   }
@@ -51,7 +50,9 @@ export default class CustomerComposite extends React.Component {
     return (
       <div>
         <h1>Started developing customer component</h1>
-        <CustomerList data={this.state.customers} />
+        {this.state.customers.length > 0 && (
+          <CustomerList data={this.state.customers} />
+        )}
       </div>
     );
   }
