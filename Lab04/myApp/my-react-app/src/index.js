@@ -4,12 +4,14 @@ import './index.css';
 import App from './App';
 import CustomerComposite from './components/customer/CustomerComposite';
 import reportWebVitals from './reportWebVitals';
+import UseStateDemo from './hooks-playground/useStateDemo';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App/>
-    <CustomerComposite />
+    {/* <CustomerComposite /> */}
+    <UseStateDemo/>
   </React.StrictMode>
 );
 
