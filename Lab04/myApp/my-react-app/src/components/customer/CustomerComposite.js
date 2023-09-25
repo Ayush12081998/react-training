@@ -1,11 +1,17 @@
 import React from "react";
 import customersData from "../../data/customers-data";
 import axios from "axios";
-import {fetch} from "whatwg-fetch";
+import { fetch } from "whatwg-fetch";
+import CustomerList from "./CustomerList";
 
 export default class CustomerComposite extends React.Component {
   //   state = { customers: [] };
+  customerList = []
   state = { customers: [], isLoading: false, hasError: false };
+  constructor(props){
+    super(props);
+    console.log("Hey I am called parent constructor");
+  }
   //didMount intended to call async call
   fetchData(url) {
     this.setState({ isLoading: true });
@@ -18,30 +24,30 @@ export default class CustomerComposite extends React.Component {
         return response;
       })
       .then((response) => {
-        const respData = response.json();
-        console.log(respData);
-        return respData;
+        return response.json();
       })
-      .then((customers) => this.setState({ customers }))
+      .then((customers) => {
+        
+        this.setState({customers: customers});
+      })
       .catch(() => this.setState({ hasError: true }));
   }
+
   componentDidMount() {
-    this.setState({customers : customersData})
-    // axios.get("customers.json").then((response) => {
-    //   this.setState({ customers: response.data });
-    // });
+    console.log("Hey I am called from parent did mount");
     this.fetchData("customers.json");
-    console.log(this.state)
+    console.log(this.state);
   }
   render() {
+    console.log("parent component rendered");
     if (this.state.hasError) {
       return <p>Something went wrong....</p>;
-    }
-    else if (this.state.isLoading) {
+    } else if (this.state.isLoading) {
       return <p>Loading...</p>;
-    }else if(this.state.customers === undefined){
+    } else if (this.state.customers === undefined) {
       return <p>Undefined Didn't received data...LOL</p>;
     }
+    console.log(this.state.customers);
     return (
       <div>
         <h1>Started developing customer component</h1>
@@ -49,48 +55,4 @@ export default class CustomerComposite extends React.Component {
       </div>
     );
   }
-}
-
-function CustomerList(props) {
-  const customers = props.data;
-  let lstCustomersComponents = [];
-
-  //   customers.forEach((customer) => {
-  //     //   console.log(customer);
-  //     lstCustomersComponents.push(<CustomerComponent customerData={customer} />);
-  //   });
-
-  console.log(customers);
-  return (
-    <table border="1" width="100%">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th>Location</th>
-          <th>Customer Since</th>
-          <th>Order Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        {customers.map((customer) => {
-          return <CustomerComponent customerData={customer} />;
-        })}
-      </tbody>
-    </table>
-  );
-}
-
-function CustomerComponent(props) {
-  const customer = props.customerData;
-  console.log(props.customerData);
-  return (
-    <tr>
-      <td>{customer.id}</td>
-      <td>{customer.name}</td>
-      <td>{customer.location}</td>
-      <td>{customer.customerSince}</td>
-      <td>{customer.orderTotal}</td>
-    </tr>
-  );
 }
